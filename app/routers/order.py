@@ -7,6 +7,7 @@ from app.models.order_item import OrderItem
 from app.models.product import Product  
 from app.models.order import Order 
 from app.auth.dependencies import get_current_user
+from app.schemas.user import UserLogin
 router = APIRouter()
 
 @router.post("/orders")
@@ -39,3 +40,13 @@ def create_order(order: OrderCreate, db: Session = Depends(get_db), current_user
     db.commit()
     db.refresh(nuevo_pedido)
     return {"order_id": nuevo_pedido.id, "total": total, "status": "pending"}
+
+#obtener pedidos 
+@router.post("/orders", response_model= OrderCreate)
+def get_orders(db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+ pedidos = db.query(Order).filter(Order.user_id == current_user.id).all()
+ return pedidos
+
+git add .
+git commit -m "Add GET orders endpoint"
+git push
