@@ -6,7 +6,9 @@ from app.models.order import Order
 from app.models.order_item import OrderItem
 from app.routers.product import router as product_router
 from app.routers.user import router as user_router
+from app.routers.order import router as order_router
 app = FastAPI()
+app.include_router(order_router)
 app.include_router(product_router)
 app.include_router(user_router)
 #importar modelos 
