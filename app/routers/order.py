@@ -47,6 +47,3 @@ def get_orders(db: Session = Depends(get_db), current_user = Depends(get_current
  pedidos = db.query(Order).filter(Order.user_id == current_user.id).all()
  return pedidos
 
-git add .
-git commit -m "Add GET orders endpoint"
-git push
